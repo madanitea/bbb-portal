@@ -1,0 +1,19 @@
+.statistik {
+	text-decoration: none;
+	color: #000;
+}
+
+.statistik:hover {
+	text-decoration: none;
+	color: #000;
+}
+
+.konten {
+	transition-duration: .3s;
+}
+
+.konten:hover {
+	transform: scale(1.05);
+	transition-duration: .3s;
+	border: .2vw solid rgb(244,160,0);
+}

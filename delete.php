@@ -1,7 +1,11 @@
 <?php
 	require "config.php";
 	$id = $_GET['id'];
-
-	$query = mysqli_query($connection,"DELETE FROM data_room WHERE id='$id'");
-	header("location:admin.php");
+	if($_GET['apa']="record"){
+		$query = mysqli_query($connection,"DELETE FROM data_record WHERE id='$id'");
+		header("location:/bigbluebutton/record.php");
+	elseif($_GET['apa']="room"){
+		$query = mysqli_query($connection,"DELETE FROM data_room WHERE id='$id'");
+		header("location:/bigbluebutton/admin.php");
+	}
 ?>

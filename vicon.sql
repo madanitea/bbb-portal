@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Agu 2019 pada 02.45
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.3.7
+-- Generation Time: Mar 26, 2020 at 09:14 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.1.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,13 +21,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `vicon`
 --
-CREATE DATABASE IF NOT EXISTS `vicon` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `vicon`;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_room`
+-- Table structure for table `data_record`
+--
+
+CREATE TABLE `data_record` (
+  `id` int(11) NOT NULL,
+  `nama_record` varchar(255) NOT NULL,
+  `waktu_record` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `url` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data_record`
+--
+
+INSERT INTO `data_record` (`id`, `nama_record`, `waktu_record`, `url`) VALUES
+(2, 'ini judul', '2020-03-26 14:12:29', 'mana.aja');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_room`
 --
 
 CREATE TABLE `data_room` (
@@ -38,7 +56,7 @@ CREATE TABLE `data_room` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `data_room`
+-- Dumping data for table `data_room`
 --
 
 INSERT INTO `data_room` (`id`, `nama_room`, `password`, `url`) VALUES
@@ -49,17 +67,29 @@ INSERT INTO `data_room` (`id`, `nama_room`, `password`, `url`) VALUES
 --
 
 --
--- Indeks untuk tabel `data_room`
+-- Indexes for table `data_record`
+--
+ALTER TABLE `data_record`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `data_room`
 --
 ALTER TABLE `data_room`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `data_room`
+-- AUTO_INCREMENT for table `data_record`
+--
+ALTER TABLE `data_record`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `data_room`
 --
 ALTER TABLE `data_room`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100003;

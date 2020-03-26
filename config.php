@@ -2,8 +2,12 @@
 /**
  * using mysqli_connect for database connection
  */
- 
+
 $databaseHost = '127.0.0.1';
+// $databaseName = 'vicon';
+// $databaseUsername = 'root';
+// $databasePassword = '';
+ 
 $databaseName = 'viconportal';
 $databaseUsername = 'viconportal';
 $databasePassword = 'V!conSTM';

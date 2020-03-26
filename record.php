@@ -4,8 +4,23 @@
     header("location:/login.php");
   }else{
     require "config.php";
-    $select = mysqli_query($connection,"SELECT *, date(waktu_record) AS tanggal, time(waktu_record) AS jam  FROM data_record ORDER BY id desc");
+    $select = mysqli_query($connection,"SELECT *, date(waktu_record) AS tanggal, time(waktu_record) AS jam  FROM data_record ORDER BY no_urut asc");
     $bam = mysqli_query($connection, "SELECT * FROM data_record ORDER BY id desc");
+
+    if(isset($_POST["post_order_ids"])){
+        $post_order = isset($_POST["post_order_ids"]) ? $_POST["post_order_ids"] : [];
+        
+        if(count($post_order)>0){
+            for($order_no= 0; $order_no < count($post_order); $order_no++)
+            {
+             $query = "UPDATE data_record SET no_urut = '".($order_no+1)."' WHERE id = '".$post_order[$order_no]."'";
+             mysqli_query($connection, $query);
+            }
+            echo true; 
+        }else{
+            echo false; 
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +83,10 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-md-12 col-xl-12">
+                    <div class="alert icon-alert with-arrow alert-success form-alter" role="alert">
+                        <i class="fa fa-fw fa-check-circle"></i>
+                        <strong> Success ! </strong> <span class="success-message"> Post Order has been updated successfully </span>
+                    </div>
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
@@ -84,7 +103,6 @@
                                 <table class="table table-borderless table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
                                             <th>Nama Record</th>
                                             <th>Waktu</th>
                                             <th>URL</th>
@@ -93,8 +111,7 @@
                                     <?php
                                         $no=1;
                                         while ($data = mysqli_fetch_array($select, MYSQLI_ASSOC)) { ?>
-                                        <tr>
-                                            <td><?php echo $no;?></td>
+                                        <tr data-post-id="<?php echo $data["id"]; ?>">
                                             <td><?php echo $data['nama_record']; ?></td>
                                             <td><?php echo $data['waktu_record']; ?></td>
                                             <td><?php echo $data['url']; ?></td>
@@ -141,8 +158,8 @@
         </div>
       </div>
 
-                                            <?php
-                                        $no++; }
+                                    <?php
+                                        }
                                     ?>
                                     </tbody>
                                 </table>
@@ -160,6 +177,39 @@
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    <script>
+
+    $(document).ready(function(){
+        $(".alert-success").hide();
+        $( "table tbody" ).sortable({
+            placeholder : "ui-state-highlight",
+            update  : function(event, ui){
+                var post_order_ids = new Array();
+                $('tbody tr').each(function(){
+                    post_order_ids.push($(this).data("post-id"));
+                });
+                console.log(post_order_ids);
+                $.ajax({
+                    url:"record.php",
+                    method:"POST",
+                    data:{post_order_ids:post_order_ids},
+                    success:function(data)
+                    {
+                     if(data){
+                        $(".alert-danger").hide();
+                        $(".alert-success ").show();
+                     }else{
+                        $(".alert-success").hide();
+                        $(".alert-danger").show();
+                     }
+                    }
+                });
+            }
+        });
+    });
+    </script>
     
 </body>
 

@@ -8,10 +8,10 @@
     if($cek > 0){
         $url = mysqli_query($connection, "SELECT url FROM data_room WHERE nama_room='$room' AND password='$password'");
         $get_url = mysqli_fetch_array($url);
-        echo $get_url['url'];
+        //echo $get_url['url'];
         header("Location:".$get_url['url']);
     }
     else{
-        header("location:/bigbluebutton/?msg=error");
+        header("location:http://vicon.smkn1-cmi.sch.id/?msg=error");
     }
 ?>
